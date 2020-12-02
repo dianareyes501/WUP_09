@@ -14,9 +14,16 @@ require(tigerstats)
 require(tidyverse)
 ```
 
+```{r}
+Fishdata=read.csv("Fish.csv", header = TRUE)
+```
+
+
 # Introduction
 
 <!--In this section you explain what you are trying to show.  Where did the data come from?  What is the research or other question you are trying to answer?!-->
+
+I will attempt to answer the following:
 
 ## Build the best regression model you can that predicts the weight of perch
 ## Using only two predictor variables  
@@ -26,25 +33,138 @@ require(tidyverse)
 
 <!--Decide on your methods:  use "variable analysis" or other appropriate descriptors.  Make sure to choose at least one graphical method and at least one numerical method.!-->
 
+we are using num~num since the variables we are looking at are all numerical
+explanatory variables.
+
 #Results
 
 <!--Divide this section into two sub-sections:  One for your descriptive  results and one for your inferential results.!-->
 
 ## Descriptive Results
 
+The descriptive results will consist of graphical, numerical and inferential descriptive results. 
+
+
 ### Graphical Descriptive Results
 
 <!--Graphical results here.  Make sure to show your code.  Provide appropriate labels for axes, giving units if possible, and provide a good title for the graph, too.  Use the graphical results to describe the patterns if any that exist in the data as focused toward the research question!-->
+
+```{r}
+Fishies=filter(Fishdata, Species =="Perch")
+Fishies=select(Fishies,-Species)
+pairs(Fishies)
+```
+
+The chart is descriptive in height.
 
 ### Numerical Descriptive Results
 
 <!--Numerical results go here. Use the numerical results to describe the patterns if any that exist in the data as focused toward the research question!-->
 
+
+```{r}
+summary(Fishies)
+```
+The numerical graphs for Perch the summary chart reflects that the Max. weight is of 1100.0 oz  the Max. Length of 44.00 for the lm for length2, a Max. Height of 12.800 in. and a Max. width of 8.142
+
+
+```{r}
+Perchmodel=lm(Weight~Length2+Width,data=Fishies)
+summary(Perchmodel)
+```
+
+The linear model reflects that r-squared prediction of 0.9341 which is close to the highest regression.
+
+
+```{r}
+model.1 <- lm(Weight~Length2+Width,data=Fishies)
+summary.lm(model.1)
+```
+
+
 ## Inferential Results
+
 
 <!--State hypothesis clearly.  Make sure your discussion of the inferential test covers all the aspects that the test output produces, such as test statistic, p-value etc.  Make a decision about the null hypothesis, explain the assumptions on which the selected test/procedure was based, and why the chosen procedure satisfys the assumptions and is appropriate to answer the research question!-->
 
+The inferential test above agrees with the adjusted R2 prediction of 0.9341 using the variables...Height and width.  It appears that the subset chart using only variables height and width having an adj score 0f 0.9400 would be the best model to make the best prediction of weight for Perch.
+
+## Graphical Results for 'Bream"
+
+## Build the best regression model you can that predicts the weight of Bream
+## Using only two predictor variables 
+
+```{r}
+FishiesB=filter(Fishdata, Species =="Bream")
+FishiesB=select(FishiesB,-Species)
+pairs(FishiesB)
+```
+
+The best regression model to test the prediction for "Bream" would be Length1 and Width. 
+
+## Numerical Descriptive Results for Bream
+
+```{r}
+summary(FishiesB)
+```
+The numerical graph shows the max. weight of 1000 oz with a max length of 38 in. using the Length1 variable and a max Height of 18.96 in. and a max width of 6.8 in. for the Bream. 
+
+```{r}
+Breammodel2=lm(Weight~Length1+ Width,data=FishiesB)
+summary(Breammodel2)
+```
+
+Model 2 for "Bream" show that the Adjusted R2 is 0.9084.
+
+## Inferential Results for Bream
+```{r}
+model.2 <- lm(Weight~Length1+Width,data=FishiesB)
+summary.lm(model.2)
+```
+
+The inferential chart has a prediction of 0.9084 while using the variables Length1 and width. The variables that best predict the weight using Length2 and Height with and Adjusted R2 of 0.935.  
+
+
+## Build the best regression model you can that predicts the weight of Smelt
+## Using only two predictor variables
+
+
+## Graphical Descriptive Results for Smelt Fish
+```{r}
+FishiesS=filter(Fishdata, Species =="Smelt")
+FishiesS=select(FishiesS,-Species)
+pairs(FishiesS)
+```
+The best model regression to test the redicted weight for smelt would be using Length3 and Height.
+
+## Numerical Descriptive Results for Smelt
+```{r}
+summary(FishiesS)
+```
+The Numerical Graph reflects that the max weight for a "Smelt" fish would be 19.90 oz. Max length would be Length3 of 16.20n inches. Max height would be 2.932 and a width of 2.067.
+
+```{r}
+Smeltmodel3=lm(Weight~Length3 + Height,data=FishiesS)
+summary(Smeltmodel3)
+```
+
+The Model3 Chart shows that "Smelt" fish has an Adjusted R2 of 0.9307
+
+## Inferential Results for Smelt
+```{r}
+model.3 <- lm(Weight~Length3+Height,data=FishiesS)
+summary.lm(model.3)
+```  
+
+The Inferential Results for "Smelt" Adjusted R2 of 0.9307 using the two variables Length3 and Height.
 
 # Discussion and Conclusion
 
 <!--Discussion and conclusion here.  If you found a relationship be sure to consider whether the relationship occurs because one of the variavbles causes the other, or whether they perhasps are related for some other reason.  Watch the chapter 6 videos from the GeorgeTown videos collection.!-->
+
+In Conclusion the best two best variables for the "Perch" are Height and Width in which relects that the "Perch" has an Adjusted R2 of 0.9400.
+
+Conclusion for "Bream" was the Length2 and Height which are the best two variables for the models to predict the weight of the "Bream", 
+with an Adjusted R2 of 0.935. 
+
+Conclusion for "Smelt" consist of the two variables Length2 and Width in order to find the best regression Model which reflects an Adjusted R2 of 0.9645 which also concludes that its the best variables to predict the weight.
